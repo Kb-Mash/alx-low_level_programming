@@ -12,7 +12,7 @@ int i = 0;
 
 while (i <= 9)
 {
-for (cha = 0; cha <= 'z'; cha++)
+for (cha = 'a'; cha <= 'z'; cha++)
 {
 _putchar(cha);
 }
