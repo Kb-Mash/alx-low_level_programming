@@ -3,19 +3,18 @@
 /**
  * _islower -  checks for lowercase character
  * @c: parameter for the argument
- * Return: 1 (Success), 0 (fail)
+ * Return: 1 (Success), 0 (Fail)
  */
 
 int _islower(int c);
 {
-	char cha = 'a';
+char cha = 'a';
 
-	while (cha <= 'z')
-	{
-		if (c == cha)
-			return (1);
-		cha++;
-	}
-
-	return (0);
+while (cha <= 'z')
+{
+if (c == cha)
+return (1);
+cha++;
+}
+return (0);
 }
