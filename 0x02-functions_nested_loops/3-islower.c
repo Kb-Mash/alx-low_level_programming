@@ -6,7 +6,7 @@
  * Return: 1 (Success), 0 (Fail)
  */
 
-int _islower(int c);
+int _islower(int c)
 {
 char cha = 'a';
 
