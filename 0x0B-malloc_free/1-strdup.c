@@ -11,33 +11,32 @@
 
 char *_strdup(char *str)
 {
-	int i, j, len = 0;
 	char *duplicate;
+	int i, len = 0;
 
 	if (str == NULL)
 	{
 		return (NULL);
 	}
 
-	for (i = 0; str[i]; i++)
+	for (index = 0; str[i]; i++)
 	{
 		len++;
 	}
 
-	duplicate = malloc(sizeof(char) + (len + 1));
+	duplicate = malloc(sizeof(char) * (len + 1));
 
 	if (duplicate == NULL)
 	{
 		return (NULL);
 	}
 
-	for (j = 0; str[j]; j++)
+	for (i = 0; str[i]; i++)
 	{
-		duplicate[j] = str[j];
+		duplicate[i] = str[i];
 	}
 
 	duplicate[len] = '\0';
 
 	return (duplicate);
-
 }
