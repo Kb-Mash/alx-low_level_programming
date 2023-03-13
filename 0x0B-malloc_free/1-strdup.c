@@ -22,6 +22,7 @@ char *_strdup(char *str)
 	while (*str)
 	{
 		len++;
+		str++;
 	}
 
 	duplicate = malloc(sizeof(char) + (len + 1));
