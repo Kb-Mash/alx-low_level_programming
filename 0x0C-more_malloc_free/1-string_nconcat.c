@@ -8,11 +8,10 @@
  * Return: pointer to allocated memory
  * NULL(fail)
  */
-
 char *string_nconcat(char *s1, char *s2, unsigned int n)
 {
-	int len, i, j;
 	char *ptr;
+	int len = 0, i, j, k;
 
 	if (s1 == NULL)
 		s1 = "";
@@ -23,18 +22,20 @@ char *string_nconcat(char *s1, char *s2, unsigned int n)
 	for (i = 0; s1[i]; i++)
 		len++;
 
-	ptr = malloc(sizeof(char) * (len + n + 1));
+	int size = len + n;
+
+	ptr = malloc(sizeof(char) * (size + 1));
 
 	if (ptr == NULL)
 		return (NULL);
 
-	for (i = 0; s1[i]; i++)
-		ptr[i] = s1[i];
+	for (j = 0; s1[j]; j++)
+		ptr[j] = s1[j];
 
-	for (j = 0; j < n; j++)
-		ptr[i++] = s2[j];
+	for (k = 0; k < n; k++)
+		ptr[i++] = s2[k];
 
-	ptr[i] = '\0';
+	ptr[k] = '\0';
 
 	return (ptr);
 }
