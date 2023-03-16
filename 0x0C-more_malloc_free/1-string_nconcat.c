@@ -1,5 +1,5 @@
-#include <stdlib.h>
 #include "main.h"
+#include <stdlib.h>
 
 /**
  * string_nconcat - Concatenates two strings using at
@@ -11,11 +11,10 @@
  * Return: If the function fails - NULL.
  *         Otherwise - a pointer to the concatenated space in memory.
  */
-
 char *string_nconcat(char *s1, char *s2, unsigned int n)
 {
-	char *ptr;
-	unsigned int len = 0, i, j, k;
+	char *concat;
+	unsigned int len = n, index;
 
 	if (s1 == NULL)
 		s1 = "";
@@ -23,23 +22,23 @@ char *string_nconcat(char *s1, char *s2, unsigned int n)
 	if (s2 == NULL)
 		s2 = "";
 
-	for (i = 0; s1[i]; i++)
+	for (index = 0; s1[index]; index++)
 		len++;
 
-	unsigned int size = len + n;
+	concat = malloc(sizeof(char) * (len + 1));
 
-	ptr = malloc(sizeof(char) * (size + 1));
-
-	if (ptr == NULL)
+	if (concat == NULL)
 		return (NULL);
 
-	for (j = 0; s1[j]; j++)
-		ptr[j] = s1[j];
+	len = 0;
 
-	for (k = 0; k < n; k++)
-		ptr[i++] = s2[k];
+	for (index = 0; s1[index]; index++)
+		concat[len++] = s1[index];
 
-	ptr[k] = '\0';
+	for (index = 0; s2[index] && index < n; index++)
+		concat[len++] = s2[index];
 
-	return (ptr);
+	concat[len] = '\0';
+
+	return (concat);
 }
