@@ -11,9 +11,9 @@
 unsigned int binary_to_uint(const char *b)
 {
 	unsigned int decimal = 0, weight = 1, len = strlen(b);
-	int i, rem;
+	int i = 0, rem;
 
-	if (b == NULL)
+	if (b == NULL || b[i] == '\0')
 		return (0);
 
 	for (i = len - 1; i >= 0; i--)
