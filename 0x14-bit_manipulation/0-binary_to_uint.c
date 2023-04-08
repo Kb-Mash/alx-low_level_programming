@@ -10,20 +10,24 @@
 
 unsigned int binary_to_uint(const char *b)
 {
-	unsigned int decimal = 0, weight = 1, len = strlen(b);
-	int i = 0, rem;
+	unsigned int decimal = 0;
+	int i = 0;
 
 	if (b == NULL || b[i] == '\0')
 		return (0);
 
-	for (i = len - 1; i >= 0; i--)
+	for (; b[i]; i++)
 	{
-		if (b[i] != '1' && b[i] != '0')
+		if (b[i] == '0' || b[i] == '1')
+		{
+			decimal <<= 1;
+			decimal += b[i] - '0';
+		}
+		else
+		{
 			return (0);
+		}
 
-		rem = b[i] - '0';
-		decimal += rem * weight;
-		weight *= 2;
 	}
 
 	return (decimal);
