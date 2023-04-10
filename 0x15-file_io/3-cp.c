@@ -28,31 +28,33 @@ int main(int argc, char *argv[])
 
 void _cp(const char *file_from, const char *file_to)
 {
+	int fd_to, fd_from, r, w;
 	char buffer[1024];
-	int fd_from, fd_to;
-	ssize_t r, w;
 
-	if (file_from == NULL)
+	fd_from = open(file_from, O_RDONLY);
+	if (!file_from || fd_from == -1)
 	{
 		dprintf(STDERR_FILENO, "Error: Can't read from file %s\n", file_from);
 		exit(98);
 	}
 
-	fd_from = open(file_from, O_RDONLY);
 	fd_to = open(file_to, O_CREAT | O_WRONLY | O_TRUNC, 0664);
 	r = read(fd_from, buffer, 1024);
 	w = write(fd_to, buffer, r);
 
-	if (fd_from == -1 || r == -1)
+	while (r > 0)
+	{
+		if (w != r || fd_to == -1)
+		{
+			dprintf(STDERR_FILENO, "Error: Can't write to %s\n", file_to);
+			exit(99);
+		}
+	}
+
+	if (r == -1)
 	{
 		dprintf(STDERR_FILENO, "Error: Can't read from file %s\n", file_from);
 		exit(98);
-	}
-
-	if (fd_to == -1 || w == -1 || w != r)
-		{
-		dprintf(STDERR_FILENO, "Error: Can't write to %s\n", file_to);
-		exit(99);
 	}
 
 	_close(fd_from);
@@ -66,7 +68,9 @@ void _cp(const char *file_from, const char *file_to)
 
 void _close(int fd)
 {
-	if (close(fd) == -1)
+	int c = close(fd);
+
+	if (c == -1)
 	{
 		dprintf(STDERR_FILENO, "Error: Can't close fd %d\n", fd);
 		exit(100);
