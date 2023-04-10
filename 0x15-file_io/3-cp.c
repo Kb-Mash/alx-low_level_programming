@@ -43,19 +43,16 @@ void _cp(const char *file_from, const char *file_to)
 	r = read(fd_from, buffer, 1024);
 	w = write(fd_to, buffer, r);
 
-	while (r > 0)
+	if (fd_from == -1 || r == -1)
 	{
-		if (fd_from == -1 || r == -1)
-		{
-			dprintf(STDERR_FILENO, "Error: Can't read from file %s\n", file_from);
-			exit(98);
-		}
+		dprintf(STDERR_FILENO, "Error: Can't read from file %s\n", file_from);
+		exit(98);
+	}
 
-		if (fd_to == -1 || w == -1 || w != r)
+	if (fd_to == -1 || w == -1 || w != r)
 		{
-			dprintf(STDERR_FILENO, "Error: Can't write to %s\n", file_to);
-			exit(99);
-		}
+		dprintf(STDERR_FILENO, "Error: Can't write to %s\n", file_to);
+		exit(99);
 	}
 
 	_close(fd_from);
