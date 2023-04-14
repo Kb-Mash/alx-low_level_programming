@@ -1,4 +1,21 @@
-#include "main.h"
+#include <elf.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+#include <unistd.h>
+#include <stdio.h>
+#include <stdlib.h>
+
+void _magic(unsigned char *buffer);
+void _class(unsigned char *buffer);
+void _data(unsigned char *buffer);
+void _version(unsigned char *buffer);
+void _abi(unsigned char *buffer);
+void _osabi(unsigned char *buffer);
+void _type(unsigned int type, unsigned char *buffer);
+void _entry(unsigned long int entry, unsigned char *buffer);
+void _close(int fd);
+void if_elf(unsigned char *buffer);
 
 /**
  * _magic - prints ELF magic
@@ -73,7 +90,7 @@ void _data(unsigned char *buffer)
  * _version - prints ELF version
  * @buffer: pointer to an array containing the ELF version
  */
-void _version(const unsigned char *buffer)
+void _version(unsigned char *buffer)
 {
 	printf("  Version:                           %d",
 			buffer[EI_VERSION]);
@@ -88,7 +105,7 @@ void _version(const unsigned char *buffer)
  * _osabi - prints ELF OS/ABI
  * @buffer: pointer to an array containing the ELF version
  */
-void _osabi(const unsigned char *buffer)
+void _osabi(unsigned char *buffer)
 {
 	const char *osTable[19] = {
 		"UNIX - System V",
