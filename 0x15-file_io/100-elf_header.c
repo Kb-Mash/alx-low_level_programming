@@ -12,10 +12,10 @@ void _type(unsigned int e_type, unsigned char *e_ident);
 void _entry(unsigned long int e_entry, unsigned char *e_ident);
 void _close(int fd);
 void is_elf(unsigned char *e_ident);
+void print_elf(Elf64_Ehdr *ptr);
 
 /**
- * main - displays the information contained in the
- * ELF header at the start of an ELF file
+ * main - entry point
  * @ac: number of arguments
  * @av: array of pointers to the arguments
  * Return: 0 (success)
@@ -51,6 +51,21 @@ int main(int __attribute__((__unused__)) ac, char *av[])
 		exit(98);
 	}
 
+	print_elf(ptr);
+
+	free(ptr);
+	_close(fd);
+
+	return (0);
+}
+
+/**
+ * print_elf - prints the information contained in the
+ * ELF header at the start of an ELF file
+ * @ptr: pointer to members of Elf64_Ehdr struct
+ */
+void print_elf(Elf64_Ehdr *ptr)
+{
 	is_elf(ptr->e_ident);
 	printf("ELF Header:\n");
 	_magic(ptr->e_ident);
@@ -61,11 +76,6 @@ int main(int __attribute__((__unused__)) ac, char *av[])
 	_abi(ptr->e_ident);
 	_type(ptr->e_type, ptr->e_ident);
 	_entry(ptr->e_entry, ptr->e_ident);
-
-	free(ptr);
-	_close(fd);
-
-	return (0);
 }
 
 /**
